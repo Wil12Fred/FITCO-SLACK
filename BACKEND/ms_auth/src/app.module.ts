@@ -2,11 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { ConfigModule } from '@nestjs/config';
 import { Accounts } from './accounts/models/accounts.model';
 import { AccountModule } from './accounts/accounts.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.MYSQ_DB_HOST,

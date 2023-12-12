@@ -28,4 +28,8 @@ export class AccountsService {
       return error;
     }
   }
+
+  async getById(accountId: number): Promise<Accounts> {
+    return await this.accounts.findByPk(accountId);
+  }
 }
