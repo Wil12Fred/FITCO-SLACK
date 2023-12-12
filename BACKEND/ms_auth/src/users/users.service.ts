@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { genSalt, hash } from 'bcrypt';
 import { UpdateUserDto } from './dto/updateUsers.dto';
 import { UserByAccount } from './models/userByAccount.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,23 @@ export class UsersService {
     @InjectModel(UserByAccount)
     private userByAccountModel: typeof UserByAccount,
   ) {}
+
+  async findbyUsernameOrEmail(usernameOrEmail: string): Promise<Users> {
+    try {
+      const usuario = await this.userModel.findOne({
+        where: {
+          [Op.or]: {
+            username: usernameOrEmail,
+            email: usernameOrEmail,
+          },
+        },
+      });
+      return usuario;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 
   async findbyId(userId: number): Promise<Users> {
     try {
