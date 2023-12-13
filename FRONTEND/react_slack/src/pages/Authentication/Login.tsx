@@ -6,9 +6,12 @@ import {
   Input,
   Label,
   FormGroup,
+  CardBody,
 } from "reactstrap";
 import { useAuthStore } from "src/hooks/useAuthStore";
+import { CustomModal } from "src/components/CustomModal/CustomModal";
 import useModal from "src/hooks/useModal";
+import FormAddUser from "./Form/FormAddUser";
 
 const initialForm = {
   username: "",
@@ -23,6 +26,7 @@ const login = () => {
     isLoading: state.auth.loading,
     isError: state.auth.error,
   }));
+  const [isOpenModalAddUser, openModalAddUser, closeModalAddUser]: any = useModal(false);
 
   useEffect(() => {
     if (isError == null) {
@@ -48,7 +52,12 @@ const login = () => {
 
   return (
     <>
-      <Form className="auth-form">
+      <div className="p-2 bd-highlight ">
+        <Button type="button" color="primary" onClick={openModalAddUser}>
+          Registrar Usuario
+        </Button>
+      </div>
+      <Form className="auth-form" onSubmit={handle_submit}>
         <FormGroup>
           <Label htmlFor="component-error">
             Usuario
@@ -57,6 +66,8 @@ const login = () => {
             label="Username"
             variant="standard"
             name="username"
+            value={form.username}
+            onChange={handle_change}
           />
         </FormGroup>
         <FormGroup>
@@ -68,6 +79,9 @@ const login = () => {
             id="component-error"
             aria-describedby="component-error-text"
             name="password"
+            type="password"
+            value={form.password}
+            onChange={handle_change}
           />
         </FormGroup>
         <Button
@@ -78,6 +92,15 @@ const login = () => {
           Iniciar Sesión
         </Button>
       </Form>
+      <CustomModal
+        title="Registrar Usuario"
+        isOpen={isOpenModalAddUser}
+        handleOpenModal={closeModalAddUser}
+      >
+        <CardBody>
+          <FormAddUser />
+        </CardBody>
+      </CustomModal>
     </>
   );
 };
