@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { Modal } from "reactstrap";
+import { Icon } from "@iconify/react";
+import "./modal.css";
 
 interface ICustomModal {
   data?: any;
@@ -22,6 +24,7 @@ export const CustomModal: FC<ICustomModal> = ({
       <div className="modal-header modal--header">
         {prevTab && (
           <button type="button" onClick={prevTab} className="modal--return">
+            <Icon icon="uil-arrow-left" height="24" />
           </button>
         )}
 

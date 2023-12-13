@@ -4,6 +4,9 @@ import NonAuthLayout from "./components/NonAuthLayout";
 import { auth_routes, user_routes } from './routes/allRoutes';
 import Authmiddleware from './routes/middleware/Authmiddleware';
 import VerticalLayout from "./components/VerticalLayout/";
+import "./assets/scss/theme.scss";
+import "./index.css";
+import "./tailwind.css";
 
 function App() {
   const layout = VerticalLayout;

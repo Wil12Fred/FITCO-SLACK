@@ -1,0 +1,114 @@
+.modal--header {
+  border: 0 !important;
+  padding: 15px 15px 10px 15px !important;
+}
+.modal--close {
+  padding-right: 30px !important;
+  padding-top: 30px !important;
+}
+
+.modal--title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--first-color);
+  text-align: center;
+  margin-top: 0;
+}
+
+.modal--return {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  color: #bbbdbf;
+}
+
+.modal--body {
+  padding: 1.1rem !important;
+  padding-top: 0 !important;
+}
+
+.modal--body .card-body {
+  padding: 0 !important;
+}
+
+.nav-tabs--custom {
+  border: 0 !important;
+}
+
+.nav-tabs--custom .nav-link {
+  width: 95% !important;
+  border-bottom: 2px solid #d7edfd !important;
+}
+.nav-tabs--custom .nav-item {
+  display: flex;
+  justify-content: center;
+}
+.nav-tabs--custom .nav-item a.active.nav-link {
+  border: 0 !important;
+  position: relative;
+  top: -2px;
+}
+.tabs--title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--blue-800);
+  margin-bottom: 10px;
+}
+.tabs--button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.modal--message {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+}
+.modal-icon--message {
+  color: var(--first-color);
+  width: 55px;
+}
+.modal__mesage--title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--first-color);
+  text-align: left;
+}
+.modal__mesage--text {
+  margin-top: 6px;
+}
+.modal--spinner {
+  display: flex !important;
+  margin: 50px auto !important;
+}
+
+.tabs-form input {
+  border: 0 !important;
+  border-bottom: 1px solid #e1e1e1 !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 3px !important;
+  margin-top: 15px;
+}
+
+.text--danger {
+  color: var(--fourth-color);
+  font-size: 11px;
+  margin-bottom: 0;
+}
+.tabs-form input.input--danger {
+  border-bottom: 1px solid var(--fourth-color) !important;
+}
+
+.tabs-form .form-select {
+  border: 0 !important;
+  border-bottom: 1px solid #e1e1e1 !important;
+  border-radius: 0 !important;
+  padding: 3px 0 !important;
+}
+
+.tabs-form .select--danger {
+  border-bottom: 1px solid var(--fourth-color) !important;
+}
