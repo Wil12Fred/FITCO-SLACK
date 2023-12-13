@@ -1,4 +1,5 @@
 import actions from "./actions";
+import Cookies from "js-cookie";
 
 const {
   login_begin,
@@ -17,6 +18,7 @@ export const on_login_begin = () => {
 
 export const on_login_success = () => {
   return async (dispatch: any) => {
+    Cookies.set("logedIn", "true");
     dispatch(login_success(true));
   };
 };
@@ -35,6 +37,7 @@ export const on_logout_begin = () => {
 
 export const on_logout_success = () => {
   return async (dispatch: any) => {
+    Cookies.remove("logedIn");
     dispatch(logout_success(null));
   };
 };

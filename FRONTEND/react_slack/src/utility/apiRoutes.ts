@@ -12,6 +12,12 @@ export class ApiRoutes {
     getUsers: "users",
   };
 
+  public static admin= {
+    workspace: "workspace",
+    channel: "channel",
+    message: "message",
+  };
+
   static createAPIRoute(endpoint: string): IApiRoute {
     return {
       route: `${endpoint}`,

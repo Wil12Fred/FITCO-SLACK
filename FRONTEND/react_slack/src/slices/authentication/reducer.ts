@@ -1,4 +1,5 @@
 import actions from "./actions";
+import Cookies from "js-cookie";
 
 interface initialState {
   login: string | undefined;
@@ -16,7 +17,7 @@ const {
 } = actions;
 
 const initState: initialState = {
-  login: undefined,
+  login: Cookies.get("logedIn"),
   loading: false,
   error: null,
 };
