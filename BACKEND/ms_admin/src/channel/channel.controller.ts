@@ -81,11 +81,11 @@ export class ChannelController {
     @Body() body: CreateChannelMessageDTO,
   ) {
     try {
-      const channelCreated = await this.channelService.createMessage(body);
+      const messageCreated = await this.channelService.createMessage(body);
       return res.status(HttpStatus.OK).json({
         status: 201,
         message: 'Se creó correctamente el mensaje',
-        channelCreated,
+        messageCreated,
       });
     } catch (error) {
       throw new HttpException(

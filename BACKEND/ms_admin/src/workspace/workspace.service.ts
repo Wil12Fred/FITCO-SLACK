@@ -26,6 +26,21 @@ export class WorkspaceService {
     }
   }
 
+  async addUserToWorkspace(
+    userWorkspace: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _user: any,
+  ): Promise<UserWorkspace> {
+    try {
+      return await this.userWorkspaceRepository.save({
+        userId: userWorkspace.invitedUserId,
+        workspaceId: userWorkspace.workspaceId,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getOne(workspaceId: number) {
     return await this.repository.findOne({
       where: { workspaceId },
@@ -33,7 +48,8 @@ export class WorkspaceService {
     });
   }
 
-  async getAll(userId: number) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getAll(_userId: number) {
     return await this.repository.find();
   }
 
