@@ -7,6 +7,12 @@ import { Accounts } from './accounts/models/accounts.model';
 import { AccountModule } from './accounts/accounts.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import {
+  AlreadyExistEmailConstraint,
+  AlreadyExistUsernameConstraint,
+  NonExistAccountConstraint,
+  NonExistUserConstraint,
+} from './utils/custom-validations.service';
 
 @Module({
   imports: [
@@ -29,6 +35,12 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    NonExistUserConstraint,
+    NonExistAccountConstraint,
+    AlreadyExistEmailConstraint,
+    AlreadyExistUsernameConstraint,
+  ],
 })
 export class AppModule {}
