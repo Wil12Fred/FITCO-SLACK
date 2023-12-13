@@ -11,6 +11,7 @@ import {
   Get,
   Param,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDTO } from './dto/createUsers.dto';
@@ -26,8 +27,9 @@ import {
 import { UpdateUserDto } from './dto/updateUsers.dto';
 import { AccountHeader } from 'src/utils/headers-decorators';
 import { UserParamInterceptor } from 'src/common/interceptor/context.interceptor';
+import { JwtAuthGuardLogin } from 'src/auth/guards/jwt-auth.guard';
 
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 @ApiTags('users')
 @Controller('users')
 @AccountHeader()
@@ -60,6 +62,7 @@ export class UsersController {
   @ApiBody({ type: UpdateUserDto })
   @ApiCreatedResponse({ description: 'User updated' })
   @ApiResponse({ status: 404, description: 'Forbidden.' })
+  @UseGuards(JwtAuthGuardLogin)
   async updateUser(
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,
@@ -91,6 +94,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get users' })
   @ApiCreatedResponse({ description: 'Users got' })
   @ApiResponse({ status: 404, description: 'Forbidden.' })
+  @UseGuards(JwtAuthGuardLogin)
   async getUsers() {
     try {
       const users = await this.userService.getAll();
@@ -110,7 +114,8 @@ export class UsersController {
   @ApiOperation({ summary: 'Get user' })
   @ApiCreatedResponse({ description: 'User got' })
   @ApiResponse({ status: 404, description: 'Forbidden.' })
-  async getClientById(@Param('userId', ParseIntPipe) userId: number) {
+  @UseGuards(JwtAuthGuardLogin)
+  async getUserById(@Param('userId', ParseIntPipe) userId: number) {
     try {
       const user = await this.userService.findbyId(userId);
       if (userId) {
@@ -132,6 +137,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Delete user' })
   @ApiCreatedResponse({ description: 'User deleted' })
   @ApiResponse({ status: 404, description: 'Forbidden.' })
+  @UseGuards(JwtAuthGuardLogin)
   async deleteUser(
     @Param('userId', ParseIntPipe) userId: number,
     @Res() res: Response,

@@ -8,9 +8,13 @@ import {
   CreatedAt,
   UpdatedAt,
   DeletedAt,
+  HasMany,
+  BelongsToMany,
 } from 'sequelize-typescript';
 
 import { userStatus } from '../enums/user-status.enum';
+import { UserByAccount } from './userByAccount.model';
+import { Accounts } from 'src/accounts/models/accounts.model';
 
 @Table({
   timestamps: true,
@@ -53,4 +57,10 @@ export class Users extends Model {
   @DeletedAt
   @Column
   deleteAt: Date;
+
+  @HasMany(() => UserByAccount)
+  userAccounts: UserByAccount[];
+
+  @BelongsToMany(() => Accounts, () => UserByAccount, 'userId')
+  account: Accounts[];
 }

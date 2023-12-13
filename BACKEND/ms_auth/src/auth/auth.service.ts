@@ -14,8 +14,6 @@ export class AuthService {
   ) {}
 
   async login(loginDto: LoginDto) {
-    console.log('user del login');
-    console.log(loginDto);
     const { username } = loginDto;
     const user = await this.userService.findbyUsernameOrEmail(username);
     if (!user) {
@@ -25,6 +23,7 @@ export class AuthService {
       userId: user.userId,
       username: user.username,
       email: user.email,
+      accountId: loginDto.accountId,
     };
     const token = this._createToken(payload);
     delete user.password;

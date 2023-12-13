@@ -9,10 +9,15 @@ export class UserLocalStrategy extends PassportStrategy(
   'user-local',
 ) {
   constructor(private readonly authService: AuthService) {
-    super();
+    super({ usernameField: 'username', passReqToCallback: true });
   }
 
-  async validate(username: string, password: string): Promise<any> {
+  async validate(
+    req: Request,
+    username: string,
+    password: string,
+  ): Promise<any> {
+    console.log(req.body);
     const user = await this.authService.validateUser(username, password);
 
     if (!user) {
