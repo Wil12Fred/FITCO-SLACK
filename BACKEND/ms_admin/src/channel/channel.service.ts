@@ -44,7 +44,6 @@ export class ChannelService {
         messageId: newMessage.messageId,
         channelId: message.channelId,
       });
-      console.log(newMessage);
       message.messageId = newMessage.messageId;
       await this.messagesQueue.add('transcode', {
         message,

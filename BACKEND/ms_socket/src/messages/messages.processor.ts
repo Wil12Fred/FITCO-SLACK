@@ -7,9 +7,7 @@ import { EventsGateway } from 'src/events/events.gateway';
 export class MessageProcessor {
   private readonly logger = new Logger(MessageProcessor.name);
 
-  constructor(private readonly eventsGateway: EventsGateway) {
-    console.log('begin messages');
-  }
+  constructor(private readonly eventsGateway: EventsGateway) {}
 
   @Process('transcode')
   handleTranscode(job: Job) {
