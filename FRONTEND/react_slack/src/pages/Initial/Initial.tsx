@@ -8,6 +8,7 @@ import { ChannelCardContainer } from "./ChannelCardContainer";
 import { ChannelModal } from "./ChannelModal";
 import { ChatContainer } from "./ChatContainer";
 import { WorkspaceMenu } from "./WorkspaceMenu";
+import { chatClient } from "src/socket/chatSocket";
 
 export const Initial = () => {
   const { workspace, channel, get_workspace, set_channel } = useWorkspaceStore();
@@ -20,11 +21,17 @@ export const Initial = () => {
     }
   });
   const handle_set_channel = async (currentState: any, channel: any) => {
+    chatClient.registerRoom(channel.channelId);
     set_channel(currentState, channel);
   }
   const handle_get_workspace = async () => {
     const data = await get_workspace(userData.workspace?.workspaceId);
     if (userData && !userData.channel && data?.channels?.length) {
+      if (chatClient.status != "connected") {
+        chatClient.begin(data.channels[0].channelId);
+      } else {
+        chatClient.registerRoom(data.channels[0].channelId);
+      }
       set_channel(userData, data.channels[0]);
     }
   };

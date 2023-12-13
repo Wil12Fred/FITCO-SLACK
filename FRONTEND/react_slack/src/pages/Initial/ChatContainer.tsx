@@ -5,6 +5,7 @@ import { useAdminStore } from "src/hooks/useAdminStore";
 import { useFormUpdate } from "src/hooks/useFormUpdate";
 import { ChannelMenu } from "./ChannelMenu";
 import { useMessagesStore } from "src/hooks/useMessagesStore";
+import { chatClient } from "src/socket/chatSocket";
 
 export const ChatContainer: FC<any> = ({
   channel,
@@ -32,6 +33,20 @@ export const ChatContainer: FC<any> = ({
   const handle_get_channel_messages = async () => {
     await get_channel_messages(channel.channelId);
   }
+  useEffect(() => {
+    console.log(messages);
+    if (chatClient.socket) {
+      chatClient.socket.on("message", (msg: any) => {
+        if (channel.channelId == msg.channelId) {
+          const newList = messages.concat(msg);
+          setMessages(newList);
+        }
+      });
+      return () => {
+        chatClient.socket.off('message');
+      };
+    }
+  }, [messages]);
   useEffect(() => {
     handle_get_channel_messages();
   }, [channel]);

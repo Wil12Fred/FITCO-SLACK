@@ -7,8 +7,20 @@ interface data {
   };
 }
 
+interface workspace {
+  name: string;
+  id: string;
+}
+
+interface channel {
+  name: string;
+  id: string;
+}
+
 interface initialState {
   data: data;
+  workspace: workspace | null;
+  channel: channel | null;
   loading: boolean;
   error: false | null;
 }
@@ -20,6 +32,8 @@ const initialStateUpdate: initialState = {
       lastname: "",
     },
   },
+  channel: null,
+  workspace: null,
   loading: false,
   error: null,
 };
@@ -28,10 +42,12 @@ const {
   USER_DATA_BEGIN,
   USER_DATA_SUCCESS,
   USER_DATA_ERR,
+  USER_SET_WORKSPACE,
+  USER_SET_CHANNEL,
 } = actions;
 
 const userDataReducer = (state = initialStateUpdate, action: any) => {
-  const { type, data, err } = action;
+  const { type, data, workspace, channel, currentState, err } = action;
   switch (type) {
     case USER_DATA_BEGIN:
       return {
@@ -50,6 +66,16 @@ const userDataReducer = (state = initialStateUpdate, action: any) => {
         error: err,
         loading: false,
       };
+    case USER_SET_WORKSPACE:
+      return {
+        ...currentState,
+        workspace,
+      }
+    case USER_SET_CHANNEL:
+      return {
+        ...currentState,
+        channel,
+      }
     default:
       return state;
   }
