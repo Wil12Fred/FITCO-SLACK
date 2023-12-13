@@ -1,11 +1,12 @@
 import React from 'react';
 import { Switch, BrowserRouter as Router } from "react-router-dom";
 import NonAuthLayout from "./components/NonAuthLayout";
-import { auth_routes } from './routes/allRoutes';
+import { auth_routes, user_routes } from './routes/allRoutes';
 import Authmiddleware from './routes/middleware/Authmiddleware';
+import VerticalLayout from "./components/VerticalLayout/";
 
 function App() {
-
+  const layout = VerticalLayout;
   return (
     <React.Fragment>
       <Router>
@@ -17,6 +18,17 @@ function App() {
               component={route.component}
               key={idx}
               isAuthProtected={false}
+              exact
+            />
+          ))}
+
+          {user_routes.map((route: any, idx: number) => (
+            <Authmiddleware
+              path={route.path}
+              layout={layout}
+              component={route.component}
+              key={idx}
+              isAuthProtected={true}
               exact
             />
           ))}
