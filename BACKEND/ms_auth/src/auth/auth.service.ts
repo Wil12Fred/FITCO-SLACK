@@ -15,7 +15,10 @@ export class AuthService {
 
   async login(loginDto: LoginDto) {
     const { username } = loginDto;
-    const user = await this.userService.findbyUsernameOrEmail(username);
+    const user = await this.userService.findbyUsernameOrEmail(
+      loginDto.accountId,
+      username,
+    );
     if (!user) {
       throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
     }
@@ -45,10 +48,14 @@ export class AuthService {
   }
 
   async validateUser(
+    accountId: number,
     usernameOrEmail: string,
     password: string,
   ): Promise<Users> {
-    const user = await this.userService.findbyUsernameOrEmail(usernameOrEmail);
+    const user = await this.userService.findbyUsernameOrEmail(
+      accountId,
+      usernameOrEmail,
+    );
     if (!user) {
       throw new HttpException('User not found', HttpStatus.UNAUTHORIZED);
     }

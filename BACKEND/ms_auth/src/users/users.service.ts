@@ -17,7 +17,10 @@ export class UsersService {
     private userByAccountModel: typeof UserByAccount,
   ) {}
 
-  async findbyUsernameOrEmail(usernameOrEmail: string): Promise<Users> {
+  async findbyUsernameOrEmail(
+    accountId: number,
+    usernameOrEmail: string,
+  ): Promise<Users> {
     try {
       const usuario = await this.userModel.findOne({
         where: {
@@ -26,6 +29,14 @@ export class UsersService {
             email: usernameOrEmail,
           },
         },
+        include: [
+          {
+            model: UserByAccount,
+            where: {
+              accountId,
+            },
+          },
+        ],
       });
       return usuario;
     } catch (error) {
