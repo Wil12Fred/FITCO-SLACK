@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SidebarContent from "./SidebarContent";
 
-const Sidebar = (props: any) => {
+const Sidebar = () => {
   return (
     <React.Fragment>
       <div className="vertical-menu">

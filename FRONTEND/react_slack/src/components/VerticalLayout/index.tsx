@@ -13,6 +13,9 @@ const Layout = (props: LayoutProps) => {
         <Header />
         <Sidebar
         />
+        <div className="main-content">
+          {props.children}
+        </div>
       </div>
     </React.Fragment>
   );

@@ -4,17 +4,14 @@ import { withRouter } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { useAuthStore } from "src/hooks/useAuthStore";
+import Icon from "@ailibs/feather-react-ts";
+
 const ProfileMenu = ({ userData, props }: any) => {
   // class ProfileMenu extends React.Component{
-  const dispatch = useDispatch();
   const { start_logout } = useAuthStore();
   const [menu, setMenu] = useState<boolean>(false);
   useEffect(() => {
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   InitUi();
-    // });
     const script = document.createElement("script");
-    // /Users/cesaradolfolauramamani/Downloads/Docuentos2/GitHub/nis_pbx_reactjs/src/components/CommonForBoth/TopbarDropdown/ProfileMenu.tsx
     script.async = true;
     document.body.appendChild(script);
   }, []);
@@ -39,6 +36,7 @@ const ProfileMenu = ({ userData, props }: any) => {
         >
           <div className="dropdown d-inline-block">
             <button type="button" className="btn header-item noti-icon right-bar-toggle p-0">
+              <Icon name="chevron-down" className="icon-sm" />
             </button>
           </div>
         </DropdownToggle>

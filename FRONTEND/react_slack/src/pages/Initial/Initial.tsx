@@ -4,6 +4,10 @@ import { Helmet } from "react-helmet";
 import { useWorkspaceStore } from "src/hooks/useWorkspaceStore";
 import { Button, Card, Container } from "reactstrap";
 import useModal from "src/hooks/useModal";
+import { ChannelCardContainer } from "./ChannelCardContainer";
+import { ChannelModal } from "./ChannelModal";
+import { ChatContainer } from "./ChatContainer";
+import { WorkspaceMenu } from "./WorkspaceMenu";
 
 export const Initial = () => {
   const { workspace, channel, get_workspace, set_channel } = useWorkspaceStore();
@@ -15,6 +19,9 @@ export const Initial = () => {
       userData: state.userData,
     }
   });
+  const handle_set_channel = async (currentState: any, channel: any) => {
+    set_channel(currentState, channel);
+  }
   const handle_get_workspace = async () => {
     const data = await get_workspace(userData.workspace?.workspaceId);
     if (userData && !userData.channel && data?.channels?.length) {
@@ -33,6 +40,7 @@ export const Initial = () => {
         <Container fluid>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
+              <WorkspaceMenu name={workspace?.name ?? "CHAT"}/>
               <div className="page-title-right">
                 <ol className="breadcrumb m-0">
                   <Button type="button" color="primary" onClick={openModalAddChannel}>
@@ -49,13 +57,26 @@ export const Initial = () => {
                 <div className="p-4">
                   <div>
                     <h5 className="font-size-14 mb-3">Channels</h5>
+                    <ul className="list-unstyled chat-list">
+                      {(workspace.channels || []).map((item: any, _key: number) => (
+                        <ChannelCardContainer userData={userData} set_channel={handle_set_channel} item={item} />
+                      ))}
+                    </ul>
                   </div>
                 </div>
               </div></div></div></div><div className="simplebar-placeholder" style={{ width: "auto", height: "696px" }}></div></div><div className="simplebar-track simplebar-horizontal" style={{ visibility: "hidden" }}><div className="simplebar-scrollbar" style={{ transform: "translate3d(0px, 0px, 0px)", display: "none" }}></div></div><div className="simplebar-track simplebar-vertical" style={{ visibility: "visible" }}><div className="simplebar-scrollbar" style={{ height: "26px", transform: "translate3d(0px, 0px, 0px)", display: "block" }}></div></div></div>
             </Card>
+            <div className="w-100 user-chat mt-4 mt-sm-0 ms-lg-1">
+              <ChatContainer channel={channel}/>
+            </div>
           </div>
-        </Container >
+        </Container>
       </div>
+      <ChannelModal
+        closeModalAddChannel={closeModalAddChannel}
+        isOpenModalAddChannel={isOpenModalAddChannel}
+        handle_get_workspaces={handle_get_workspace}
+      />
     </React.Fragment>
   );
 };

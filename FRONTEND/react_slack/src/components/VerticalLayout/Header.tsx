@@ -11,9 +11,6 @@ const Header = ({ props }: any) => {
       userData: state.userData,
     }
   });
-
-  console.log(userData);
-
   function tToggle() {
     var body = document.body;
     if (window.screen.width <= 998) {

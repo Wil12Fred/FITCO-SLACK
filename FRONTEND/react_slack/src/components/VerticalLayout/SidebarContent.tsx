@@ -79,6 +79,9 @@ const SidebarContent = (props: any) => {
     setWorkspaces(data);
   };
   useEffect(() => {
+    handle_get_workspaces();
+  }, []);
+  useEffect(() => {
     ref.current.recalculate();
   }, []);
   const onClickLinkAction = (workspace: any) => {
