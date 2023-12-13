@@ -4,8 +4,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ChannelMessage } from './channelMessage.model';
 
 @Entity('channels')
 export class Channel {
@@ -24,4 +26,7 @@ export class Channel {
   })
   @JoinColumn([{ name: 'workspaceId', referencedColumnName: 'workspaceId' }])
   workspace: Workspace;
+
+  @OneToMany(() => ChannelMessage, (channelMessage) => channelMessage.channel)
+  channelMessages: ChannelMessage[];
 }
