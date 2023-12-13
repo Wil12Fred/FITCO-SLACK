@@ -29,6 +29,7 @@ import {
 } from 'src/common/interceptor/context.interceptor';
 import { AuthUser } from 'src/utils/decorators/auth-user-decorators';
 import { CreateChannelDTO } from './dto/createChannel.dto';
+import { CreateChannelMessageDTO } from './dto/createChannelMessage.dto';
 
 @ApiBearerAuth()
 @ApiTags('channel')
@@ -64,6 +65,33 @@ export class ChannelController {
         {
           status: 404,
           error: 'El espacio de trabajo es inválido' + error.message,
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+  }
+
+  @Post(':channelId/message')
+  @ApiOperation({ summary: 'Create message' })
+  @ApiBody({ type: CreateChannelMessageDTO })
+  @ApiCreatedResponse({ description: 'Message created' })
+  @ApiResponse({ status: 404, description: 'Forbidden.' })
+  async createMessage(
+    @Res() res: Response,
+    @Body() body: CreateChannelMessageDTO,
+  ) {
+    try {
+      const channelCreated = await this.channelService.createMessage(body);
+      return res.status(HttpStatus.OK).json({
+        status: 201,
+        message: 'Se creó correctamente el mensaje',
+        channelCreated,
+      });
+    } catch (error) {
+      throw new HttpException(
+        {
+          status: 404,
+          error: 'El mensaje es inválido' + error.message,
         },
         HttpStatus.FORBIDDEN,
       );
