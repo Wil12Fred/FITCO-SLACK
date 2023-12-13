@@ -5,7 +5,6 @@ import { ApiRoutes } from "src/utility/apiRoutes";
 
 export const useMessagesStore = () => {
   const [messages, setMessages] = useState<any[]>([]);
-  const dispatch = useDispatch();
   const get_channel_messages = async (channelId: number) => {
     try {
       const data = (await AdminService.get<any>(
