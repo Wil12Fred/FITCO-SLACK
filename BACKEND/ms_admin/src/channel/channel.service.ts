@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ChannelMessage } from './models/channelMessage.model';
 import { CreateChannelMessageDTO } from './dto/createChannelMessage.dto';
 import { Message } from 'src/message/models/message.model';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 @Injectable()
 export class ChannelService {
@@ -15,6 +17,7 @@ export class ChannelService {
     private messageRepository: Repository<Message>,
     @InjectRepository(ChannelMessage)
     private channelMessageRepository: Repository<ChannelMessage>,
+    @InjectQueue('messages') private readonly messagesQueue: Queue,
   ) {}
 
   async createOne(channel: any): Promise<Channel> {
@@ -43,6 +46,9 @@ export class ChannelService {
       });
       console.log(newMessage);
       message.messageId = newMessage.messageId;
+      await this.messagesQueue.add('transcode', {
+        message,
+      });
       return newMessage;
     } catch (error) {
       console.log(error);
