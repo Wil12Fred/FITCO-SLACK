@@ -25,7 +25,6 @@ export const useWorkspaceStore = () => {
     }
   };
   const set_channel = async (currentState: any, channel: any) => {
-    console.log(currentState, channel);
     dispatch(on_user_set_channel(currentState, channel));
     setChannel(channel);
   }

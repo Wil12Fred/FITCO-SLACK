@@ -34,7 +34,6 @@ export const ChatContainer: FC<any> = ({
     await get_channel_messages(channel.channelId);
   }
   useEffect(() => {
-    console.log(messages);
     if (chatClient.socket) {
       chatClient.socket.on("message", (msg: any) => {
         if (channel.channelId == msg.channelId) {

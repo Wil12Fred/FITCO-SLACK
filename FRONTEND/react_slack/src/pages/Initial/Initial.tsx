@@ -47,7 +47,7 @@ export const Initial = () => {
         <Container fluid>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <WorkspaceMenu name={workspace?.name ?? "CHAT"}/>
+              <WorkspaceMenu workspace={workspace}/>
               <div className="page-title-right">
                 <ol className="breadcrumb m-0">
                   <Button type="button" color="primary" onClick={openModalAddChannel}>

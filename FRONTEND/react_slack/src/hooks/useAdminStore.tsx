@@ -54,6 +54,14 @@ export const useAdminStore = () => {
       console.log(error);
     }
   };
-
-  return { register, registerChannel, sendMessage };
+  const registerUserToWorkspace = async(data: any) => {
+    const optional_header = {
+      account: process.env.REACT_APP_ACCOUNT,
+    };
+    try {
+    } catch (error) {
+      console.log("Ha surgido un error. Porfavor intentelo de nuevo");
+    }
+  };
+  return { register, registerChannel, sendMessage, registerUserToWorkspace };
 };

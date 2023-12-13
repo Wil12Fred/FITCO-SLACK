@@ -28,7 +28,6 @@ const Authmiddleware = ({
   });
   const Layout = layout;
   const Component = component;
-  console.log({ isLoggedIn, isAuthProtected, path});
 
   return (
     <Route

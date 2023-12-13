@@ -11,7 +11,6 @@ export const useMessagesStore = () => {
         ApiRoutes.createAPIRouteDetail(ApiRoutes.admin.channel, channelId.toString()),
       )).data;
       const channelMessages = data.channelMessages.map((channelMessage: any) => {
-        console.log(channelMessage);
         return {
           messageId: channelMessage.message.messageId,
           channelId: channelMessage.channelId,
