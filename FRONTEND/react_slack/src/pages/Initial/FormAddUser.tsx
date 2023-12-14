@@ -14,10 +14,12 @@ interface IFormAddEditPerfil {
   setAddPerfilForm?: any;
   handle_get_perfiles_usuario_submodulos?: any;
   workspace?: any;
+  closeModalAddUser?: any;
 }
 
 const FormAddWorkspaceUser: FC<IFormAddEditPerfil> = ({
   workspace,
+  closeModalAddUser,
   ...props
 }: any) => {
   const { registerUserToWorkspace } = useAdminStore();
@@ -34,12 +36,15 @@ const FormAddWorkspaceUser: FC<IFormAddEditPerfil> = ({
     validationsForm
   );
 
-  const handle_submit = (values: any) => {
+  const handle_submit = async (values: any) => {
     values.preventDefault();
-    registerUserToWorkspace({
-      workspaceId: workspace.workspaceId,
-      username,
-    });
+    const registeredUser = await registerUserToWorkspace(workspace.workspaceId, username);
+    if (registeredUser){
+      setInitialForm({
+        username: "",
+      });
+      closeModalAddUser();
+    }
   };
 
   return (

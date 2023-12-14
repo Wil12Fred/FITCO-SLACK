@@ -12,6 +12,7 @@ import {
   Param,
   UseInterceptors,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { CreateUserDTO } from './dto/createUsers.dto';
@@ -28,6 +29,8 @@ import { UpdateUserDto } from './dto/updateUsers.dto';
 import { AccountHeader } from 'src/utils/headers-decorators';
 import { UserParamInterceptor } from 'src/common/interceptor/context.interceptor';
 import { JwtAuthGuardLogin } from 'src/auth/guards/jwt-auth.guard';
+import { AuthUser } from 'src/utils/auth-user-decorators';
+import { IJwtPayloadLogin } from 'src/auth/interfaces/jwt-payload-login.interface';
 
 @ApiBearerAuth('access-token')
 @ApiTags('users')
@@ -95,9 +98,15 @@ export class UsersController {
   @ApiCreatedResponse({ description: 'Users got' })
   @ApiResponse({ status: 404, description: 'Forbidden.' })
   @UseGuards(JwtAuthGuardLogin)
-  async getUsers() {
+  @Get('')
+  async getUsers(
+    @Query('username') username: string,
+    @AuthUser() user: IJwtPayloadLogin,
+  ) {
     try {
-      const users = await this.userService.getAll();
+      const users = await this.userService.getAll(user.accountId, {
+        username,
+      });
       return users;
     } catch (error) {
       throw new HttpException(

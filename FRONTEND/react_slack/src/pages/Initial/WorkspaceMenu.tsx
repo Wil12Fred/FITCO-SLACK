@@ -42,7 +42,7 @@ export const WorkspaceMenu: FC<any> = ({
                 handleOpenModal={closeModalAddUser}
             >
                 <CardBody>
-                    <FormAddWorkspaceUser workspace={workspace}/>
+                    <FormAddWorkspaceUser workspace={workspace} closeModalAddUser={closeModalAddUser}/>
                 </CardBody>
             </CustomModal>
         </>

@@ -7,6 +7,8 @@ export class CreateUserWorkspaceDTO {
   @IsInt()
   accountId: number;
 
+  @IsNotEmpty()
+  @Type(() => Number)
   @IsInt()
   workspaceId: number;
 

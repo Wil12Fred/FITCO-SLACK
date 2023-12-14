@@ -16,6 +16,7 @@ export class ApiRoutes {
     workspace: "workspace",
     channel: "channel",
     message: "message",
+    user: "user"
   };
 
   static createAPIRoute(endpoint: string): IApiRoute {

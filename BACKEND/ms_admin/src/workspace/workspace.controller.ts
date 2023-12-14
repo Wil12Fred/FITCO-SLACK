@@ -24,7 +24,10 @@ import {
   ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { ApiGuard } from 'src/utils/guards/api.guard';
-import { UserAuthInterceptor } from 'src/common/interceptor/context.interceptor';
+import {
+  WorkspaceParamInterceptor,
+  UserAuthInterceptor,
+} from 'src/common/interceptor/context.interceptor';
 import { AuthUser } from 'src/utils/decorators/auth-user-decorators';
 import { CreateUserWorkspaceDTO } from './dto/createUserWorkspace.dto';
 
@@ -33,6 +36,7 @@ import { CreateUserWorkspaceDTO } from './dto/createUserWorkspace.dto';
 @Controller('workspace')
 @UseGuards(ApiGuard)
 @ApiBearerAuth('access-token')
+@UseInterceptors(new WorkspaceParamInterceptor())
 export class WorkspaceController {
   constructor(private workspaceService: WorkspaceService) {}
 
@@ -135,7 +139,8 @@ export class WorkspaceController {
         await this.workspaceService.addUserToWorkspace(body, user);
       return res.status(HttpStatus.OK).json({
         status: 201,
-        message: 'Se creó correctamente el espacio de trabajo',
+        message:
+          'Se creó agrego correctamente el usuario al espacio de trabajo',
         userWorkspaceCreated,
       });
     } catch (error) {

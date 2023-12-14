@@ -143,8 +143,29 @@ export class UsersService {
     return user.save();
   }
 
-  async getAll(): Promise<Users[]> {
-    const users: Users[] = await this.userModel.findAll();
+  async getAll(accountId: number, params: any = {}): Promise<Users[]> {
+    const queryParams: any = {};
+    if (params.email) {
+      queryParams.email = params.email;
+    }
+    if (params.username) {
+      queryParams.username = params.username;
+    }
+    if (params.userId) {
+      queryParams.userId = params.userId;
+    }
+    const users: Users[] = await this.userModel.findAll({
+      where: queryParams,
+      include: [
+        {
+          model: UserByAccount,
+          as: 'userAccounts',
+          where: {
+            accountId,
+          },
+        },
+      ],
+    });
 
     return users;
   }

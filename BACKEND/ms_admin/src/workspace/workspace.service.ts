@@ -48,9 +48,14 @@ export class WorkspaceService {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getAll(_userId: number) {
-    return await this.repository.find();
+  async getAll(userId: number) {
+    const userWorkspaces = await this.userWorkspaceRepository.find({
+      where: {
+        userId,
+      },
+      relations: ['workspace'],
+    });
+    return userWorkspaces.map((userWorkspace) => userWorkspace.workspace);
   }
 
   async filter(accountId: number, workspaceId: number, params: any) {

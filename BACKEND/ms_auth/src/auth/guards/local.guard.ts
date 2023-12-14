@@ -7,7 +7,6 @@ export class UserLocalAuthGuardToken extends AuthGuard('user-local') {
     const activate = (await super.canActivate(context)) as boolean;
     const request = context.switchToHttp().getRequest();
     console.log(request.body);
-    request.body.username = 'admin2';
     await super.logIn(request);
     return activate;
   }

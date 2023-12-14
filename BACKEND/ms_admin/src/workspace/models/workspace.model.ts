@@ -1,5 +1,6 @@
 import { Channel } from 'src/channel/models/channel.model';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { UserWorkspace } from './userWorkspace.model';
 
 @Entity('workspaces')
 export class Workspace {
@@ -14,4 +15,7 @@ export class Workspace {
 
   @OneToMany(() => Channel, (channel) => channel.workspace)
   channels: Channel[];
+
+  @OneToMany(() => UserWorkspace, (userWorkspace) => userWorkspace.workspace)
+  userWorkspaces: UserWorkspace[];
 }
